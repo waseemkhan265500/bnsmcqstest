@@ -1,6 +1,8 @@
 let score = 0;
 let index = 0;
 let timeLeft = 720; // 14 min
+let timer = null;
+
 
 // ===== Fixed 125 MCQs =====
 const mcqs = [
@@ -173,16 +175,7 @@ function endTest() {
   `;
 }
 
-// ===== Timer =====
-const timer = setInterval(() => {
-  timeLeft--;
-  const minutes = Math.floor(timeLeft / 60);
-  const seconds = timeLeft % 60;
-  // Show timer if you have an element with id="timer"
-  const timerEl = document.getElementById("timer");
-  if(timerEl) timerEl.innerText = `Time Left: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-  if (timeLeft <= 0) endTest();
-}, 1000);
+
 
 // ===== Welcome hide & load first question =====
 window.onload = () => {
@@ -225,24 +218,51 @@ function submitTest(){
 
   localStorage.clear();
 }
-let totalTime = 720;
+function startTimer(){
+  timer = setInterval(() => {
+    timeLeft--;
 
-if(localStorage.getItem("timeLeft")){
-  totalTime = parseInt(localStorage.getItem("timeLeft"));
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+
+    document.getElementById("timer").innerText =
+      `Time Left: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+
+    if(timeLeft <= 0){
+      clearInterval(timer);
+      endTest();
+    }
+  }, 1000);
+}
+function startTest(){
+  let name = document.getElementById("sname").value;
+  let roll = document.getElementById("roll").value;
+
+  if(name === "" || roll === ""){
+    alert("Name aur Roll Number zaroori hai");
+    return;
+  }
+
+  localStorage.setItem("studentName", name);
+  localStorage.setItem("rollNumber", roll);
+
+  document.getElementById("loginBox").style.display = "none";
+
+  loadQuestion();   // pehla question
+  startTimer();     // ⏱️ TIMER START HERE
+}
+function endTest(){
+  clearInterval(timer);
+
+  let totalMarks = mcqs.length;
+  let percentage = (score / totalMarks) * 100;
+
+  document.body.innerHTML = `
+    <h2>Test Finished</h2>
+    <p>Score: ${score}/${totalMarks}</p>
+    <p>Percentage: ${percentage.toFixed(2)}%</p>
+  `;
 }
 
-let timerInterval = setInterval(()=>{
-  let minutes = Math.floor(totalTime / 60);
-  let seconds = totalTime % 60;
 
-  document.getElementById("timer").innerText =
-    `${minutes}:${seconds < 10 ? "0"+seconds : seconds}`;
 
-  localStorage.setItem("timeLeft", totalTime);
-  totalTime--;
-
-  if(totalTime < 0){
-    clearInterval(timerInterval);
-    submitTest();
-  }
-},1000);
