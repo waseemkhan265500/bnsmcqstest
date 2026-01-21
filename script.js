@@ -264,6 +264,53 @@ function endTest(){
     <p>Percentage: ${percentage.toFixed(2)}%</p>
   `;
 }
+function signup(){
+  let name = su_name.value;
+  let roll = su_roll.value;
+  let pass = su_pass.value;
+
+  if(name=="" || roll=="" || pass==""){
+    alert("All fields required");
+    return;
+  }
+
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+
+  let exists = users.find(u => u.roll === roll);
+  if(exists){
+    alert("Roll number already registered");
+    return;
+  }
+
+  users.push({name, roll, pass});
+  localStorage.setItem("users", JSON.stringify(users));
+
+  alert("Signup successful, now login");
+  signup.style.display="none";
+  login.style.display="block";
+}
+
+function login(){
+  let roll = li_roll.value;
+  let pass = li_pass.value;
+
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+
+  let user = users.find(u => u.roll === roll && u.pass === pass);
+
+  if(!user){
+    alert("Invalid login");
+    return;
+  }
+
+  localStorage.setItem("currentUser", JSON.stringify(user));
+
+  login.style.display="none";
+  test.style.display="block";
+
+  startTest(); // tumhara existing function
+}
+
 
 
 
