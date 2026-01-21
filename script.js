@@ -125,53 +125,6 @@ const mcqs = [
  {question:"Country that invented paper?", options:["Egypt","China","India","Greece"], answer:1},
  {question:"Largest ocean?", options:["Atlantic","Pacific","Indian","Arctic"], answer:1}
 ];
-function signup(){
-  let name = document.getElementById("su_name").value;
-  let roll = document.getElementById("su_roll").value;
-  let pass = document.getElementById("su_pass").value;
-
-  if(name=="" || roll=="" || pass==""){
-    alert("All fields required");
-    return;
-  }
-
-  let users = JSON.parse(localStorage.getItem("users")) || [];
-
-  let exists = users.find(u => u.roll === roll);
-  if(exists){
-    alert("User already exists");
-    return;
-  }
-
-  users.push({name, roll, pass});
-  localStorage.setItem("users", JSON.stringify(users));
-
-  alert("Signup successful! Please login.");
-}
-function login(){
-  let roll = document.getElementById("li_roll").value;
-  let pass = document.getElementById("li_pass").value;
-
-  let users = JSON.parse(localStorage.getItem("users")) || [];
-
-  let user = users.find(u => u.roll === roll && u.pass === pass);
-
-  if(!user){
-    alert("Invalid login");
-    return;
-  }
-
-  localStorage.setItem("loggedInUser", JSON.stringify(user));
-
-  document.getElementById("loginBox").style.display = "none";
-  startTest(); // ⏱️ Test start
-}
-let result = {
-  name: user.name,
-  roll: user.roll,
-  score: score,
-  date: new Date().toLocaleString()
-};
 
 function loadQuestion() {
   document.getElementById("question").innerText = mcqs[index].question;
@@ -311,6 +264,7 @@ function endTest(){
     <p>Percentage: ${percentage.toFixed(2)}%</p>
   `;
 }
+
 
 
 
