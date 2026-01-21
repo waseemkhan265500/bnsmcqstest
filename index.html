@@ -6,6 +6,22 @@
 </head>
 <body>
  
+<!-- SIGNUP -->
+<div id="signup">
+  <h2>Signup</h2>
+  <input id="su_name" placeholder="Name">
+  <input id="su_roll" placeholder="Roll Number">
+  <input id="su_pass" type="password" placeholder="Password">
+  <button onclick="signup()">Signup</button>
+</div>
+
+<!-- LOGIN -->
+<div id="login" style="display:none;">
+  <h2>Login</h2>
+  <input id="li_roll" placeholder="Roll Number">
+  <input id="li_pass" type="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+</div>
 
 <h3 id="timer">12:00</h3>
 <header class="top">
@@ -82,6 +98,7 @@ document.getElementById("admin").innerHTML = html;
   <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
