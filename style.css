@@ -48,7 +48,23 @@ body {
   font-size: 14px;
   margin-bottom: 15px;
 }
+.my-footer {
+    width: 100%;             /* Poori screen ki width cover karega */
+    background-color: rgba(0, 0, 0, 0.7); /* Thora black transparent background taake text nazar aaye */
+    color: white;            /* Text ka rang */
+    text-align: center;      /* Sab kuch center mein rahega */
+    padding: 30px 0;         /* Upar aur niche thori jagah (padding) */
+    margin-top: 50px;        /* MCQs aur name ke darmiyan fasla */
+    
+    /* Agar aap chahte hain ke footer hamesha screen ke bottom par chipka rahe: */
+    /* position: relative; */ 
+}
 
+#contact-card a {
+    color: #25D366;          /* WhatsApp link ka color green */
+    text-decoration: none;
+    font-weight: bold;
+}
 
 .contact-card a{
   color: #25D366;
